@@ -14,19 +14,19 @@ import java.util.logging.Logger;
  * Created by sk on 05/02/17.
  */
 @RestController
-@RequestMapping("/span")
+@RequestMapping("/subTree")
 @Slf4j
 public class SleuthTestApiResource {
 
     private static final Logger logger = Logger.getLogger(SleuthResource.class.getName());
 
-
+    @Autowired
+    private RestTemplate restTemplate;
 
     @GetMapping
-    public String home() {
-        logger.log(Level.INFO, "trace is trying to get the span id");
-        return "logged the span id";
+    public String subTree() {
+        logger.log(Level.INFO, "you are asking to trace the request in the sub tree");
+        restTemplate.getForObject("http://localhost:8086/leaves", String.class);
+        return "Check logs to get the trace Id and span Id";
     }
-
-
 }
